@@ -12,7 +12,7 @@ random.seed(SEED)
 torch.manual_seed(SEED)
 
 BATCH_SIZE = 32
-PATIENCE = 30  # 早停的耐心值
+PATIENCE = 40  # 早停的耐心值
 TRAIN_LOSS = []
 VALIDATION_LOSS = []
 GRAD_CLIP = 5.0
@@ -27,7 +27,7 @@ class TrainModel:
     def define_optimizer(self):
         """定义优化器"""
         # return optim.Adam(self.model.parameters(), lr=0.01)
-        return optim.Adam(self.model.parameters(), lr=0.001, weight_decay=1e-5)
+        return optim.Adam(self.model.parameters(), lr=0.005, weight_decay=1e-5)
 
     def train_epoch(self, data_x, data_y, optimizer):
         """训练单个epoch"""
@@ -72,9 +72,10 @@ class TrainModel:
                 # torch.save(self.model.state_dict(), model_file_name)
             else:
                 patience_counter += 1
-                if patience_counter >= PATIENCE:
-                    print("早停机制触发，训练终止。")
-                    break
+                #数据量小，就未使用早停（目的是防止过拟合）
+                # if patience_counter >= PATIENCE:
+                #     print("早停机制触发，训练终止。")
+                #     break
 
             if (epoch + 1) % 10 == 0:
                 print('Epoch [{}/{}], Train Loss: {:.4f}, Validation Loss: {:.4f}'.format(epoch + 1, epochs, train_loss,
