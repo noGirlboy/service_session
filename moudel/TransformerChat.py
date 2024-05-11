@@ -16,9 +16,12 @@ class ChatbotTransformer(nn.Module):
 
         self.input_dim = input_dim
         self.output_dim = output_dim
+        #映射到向量
         self.embedding = nn.Embedding(len(vocab), input_dim)
+        #重点：处理数据
         self.transformer = nn.Transformer(d_model=input_dim, nhead=nhead, num_encoder_layers=num_encoder_layers,
                                           num_decoder_layers=num_decoder_layers)
+        #对输出结果进行线性变换后得到结果
         self.fc = nn.Linear(input_dim, output_dim)
 
     def forward(self, src, tgt):
