@@ -27,7 +27,7 @@ class TrainModel:
     def define_optimizer(self):
         """定义优化器"""
         # return optim.Adam(self.model.parameters(), lr=0.01)
-        return optim.Adam(self.model.parameters(), lr=0.005, weight_decay=1e-5)
+        return optim.Adam(self.model.parameters(), lr=0.001, weight_decay=1e-5)
 
     def train_epoch(self, data_x, data_y, optimizer):
         """训练单个epoch"""

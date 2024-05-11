@@ -18,7 +18,7 @@ else:
     model = ChatbotTransformer(input_dim=16, output_dim=len(vocab), nhead=8, num_encoder_layers=1, num_decoder_layers=1)
     # 训练器实例化
     trainer = TrainModel(model)
-    trainer.train(data_x, data_y, 500)
+    trainer.train(data_x, data_y, 200)
 
 # 响应生成器实例化
 generator = ResponseGenerator(model)
